@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/todayActivity"
+        android:id="@+id/todayQuote"
         android:layout_below="@+id/dateLabel"
         android:layout_toEndOf="@+id/dateLabel"
         android:layout_marginTop="119dp"
