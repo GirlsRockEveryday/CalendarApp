@@ -16,6 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="ro.calendarh.calendarapp.DisplaySummaryActivity"
+            android:label="@string/title_activity_display_summary"
+            android:parentActivityName="ro.calendarh.calendarapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.calendarh.calendarapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
