@@ -1,7 +1,8 @@
 package ro.calendarh.calendarapp;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,20 +10,27 @@ import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.Calendar;
 import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
+    private static final String PREFS = "prefs";
+    private static final String PREF_NAME = "name";
+
+//    private ShareActionProvider mShareActionProvider;
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        displayWelcome();
 
         TextView dateLabel = (TextView)findViewById(R.id.dateLabel);
         Calendar calendar = Calendar.getInstance();
@@ -31,14 +39,7 @@ public class MainActivity extends ActionBarActivity {
         TextView todayQuote = (TextView)findViewById(R.id.todayQuote);
         todayQuote.setText("“If you spend your whole life waiting for the storm, you’ll never enjoy the sunshine.” -Morris West");
     }
-    /** Called when the user clicks the Send button */
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, DisplaySummaryActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,5 +65,41 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public View onCreateView(String name, @NonNull Context context, @NonNull AttributeSet attrs) {
         return super.onCreateView(name, context, attrs);
+    }
+
+    private void displayWelcome() {
+        mSharedPreferences = getSharedPreferences(PREFS, MODE_PRIVATE);
+        String name = mSharedPreferences.getString(PREF_NAME, "");
+        if (name.length() > 0) {
+            Toast.makeText(this, "Welcome back, " + name + "!", Toast.LENGTH_LONG).show();
+        } else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Hello!");
+            alert.setMessage("What is your name?");
+
+            final EditText input = new EditText(this);
+            alert.setView(input);
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String inputName = input.getText().toString();
+                    SharedPreferences.Editor edit = mSharedPreferences.edit();
+                    edit.putString(PREF_NAME, inputName);
+                    edit.commit();
+
+                    Toast.makeText(getApplicationContext(), "Welcome, " + inputName + "!", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            alert.show();
+        }
     }
 }
