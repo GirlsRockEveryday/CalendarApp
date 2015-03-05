@@ -1,5 +1,6 @@
 package ro.calendarh.calendarapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +21,16 @@ import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity {
 
-    private static final String PREFS = "prefs";
+    public static final String EXTRA_MESSAGE = "extra";
+
     private static final String PREF_NAME = "name";
+    private static final String PREFS = "prefs";
 
 //    private ShareActionProvider mShareActionProvider;
     private SharedPreferences mSharedPreferences;
+
+    private TextView activityNameLbl;
+    private TextView activityTextLbl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,12 @@ public class MainActivity extends ActionBarActivity {
         TextView dateLabel = (TextView)findViewById(R.id.dateLabel);
         Calendar calendar = Calendar.getInstance();
         dateLabel.setText(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " + calendar.get(Calendar.DAY_OF_MONTH) + ", " + calendar.get(Calendar.YEAR));
+
+        activityNameLbl = (TextView) findViewById(R.id.activityNamelbl);
+        activityNameLbl.setText("Jogging");
+
+        activityTextLbl = (TextView) findViewById(R.id.activityTextLbl);
+        activityTextLbl.setText("Run in park");
 
         TextView todayQuote = (TextView)findViewById(R.id.todayQuote);
         todayQuote.setText("“If you spend your whole life waiting for the storm, you’ll never enjoy the sunshine.” -Morris West");
