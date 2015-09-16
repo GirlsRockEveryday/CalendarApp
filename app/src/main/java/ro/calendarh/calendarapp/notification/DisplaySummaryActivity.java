@@ -1,4 +1,4 @@
-package ro.calendarh.calendarapp;
+package ro.calendarh.calendarapp.notification;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * Created by RalucaStanculescu on 01.03.2015.
- */
+import ro.calendarh.calendarapp.MainActivity;
+import ro.calendarh.calendarapp.R;
+
+//use this view for notification
 public class DisplaySummaryActivity extends ActionBarActivity {
 
     @Override

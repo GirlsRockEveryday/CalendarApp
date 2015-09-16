@@ -3,6 +3,7 @@ package ro.calendarh.calendarapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
@@ -14,7 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import ro.calendarh.calendarapp.config.WizardActivity;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -86,33 +87,40 @@ public class MainActivity extends ActionBarActivity {
         if (name.length() > 0) {
             Toast.makeText(this, "Welcome back, " + name + "!", Toast.LENGTH_LONG).show();
         } else {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("Hello!");
-            alert.setMessage("What is your name?");
-
-            final EditText input = new EditText(this);
-            alert.setView(input);
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String inputName = input.getText().toString();
-                    SharedPreferences.Editor edit = mSharedPreferences.edit();
-                    edit.putString(PREF_NAME, inputName);
-                    edit.commit();
-
-                    Toast.makeText(getApplicationContext(), "Welcome, " + inputName + "!", Toast.LENGTH_LONG).show();
-                }
-            });
-
-            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            alert.show();
+//            runOldImplementation();
+            //start wizard activity
+                Intent intent = new Intent(this, WizardActivity.class);
+                startActivity(intent);
         }
+    }
+
+    private void runOldImplementation() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Hello!");
+        alert.setMessage("What is your name?");
+
+        final EditText input = new EditText(this);
+        alert.setView(input);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String inputName = input.getText().toString();
+                SharedPreferences.Editor edit = mSharedPreferences.edit();
+                edit.putString(PREF_NAME, inputName);
+                edit.commit();
+
+                Toast.makeText(getApplicationContext(), "Welcome, " + inputName + "!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alert.show();
     }
 }

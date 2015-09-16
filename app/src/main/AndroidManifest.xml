@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ro.calendarh.calendarapp" >
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.AppCompat.Light">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -18,12 +17,17 @@
         </activity>
 
         <activity
-            android:name="ro.calendarh.calendarapp.DisplaySummaryActivity"
+            android:name=".notification.DisplaySummaryActivity"
             android:label="@string/title_activity_display_summary"
             android:parentActivityName="ro.calendarh.calendarapp.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ro.calendarh.calendarapp.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="ro.calendarh.calendarapp.config.WizardActivity"
+            android:label="@string/title_configuration_wizard" >
         </activity>
     </application>
 

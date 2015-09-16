@@ -64,7 +64,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_send"
+        android:text="@string/button_next"
         android:layout_below="@+id/edit_message"
         android:layout_alignParentStart="true"
         android:layout_marginTop="55dp"
