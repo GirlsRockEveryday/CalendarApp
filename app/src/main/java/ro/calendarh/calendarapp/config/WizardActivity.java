@@ -164,7 +164,11 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 
     @Override
     public void onPageTreeChanged() {
-
+        mCurrentPageSequence = mWizardModel.getCurrentPageSequence();
+        recalculateCutOffPage();
+        mStepPagerStrip.setPageCount(mCurrentPageSequence.size() + 1); // + 1 = review step
+        mPagerAdapter.notifyDataSetChanged();
+        updateBottomBar();
     }
 
     @Override

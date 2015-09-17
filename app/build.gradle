@@ -24,8 +24,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
-    releaseCompile 'com.github.TechFreak:WizardPager:1.0.3'
+    compile 'com.github.TechFreak:WizardPager:1.0.3'
 }
+
 idea {
     module {
         downloadJavadoc = true
