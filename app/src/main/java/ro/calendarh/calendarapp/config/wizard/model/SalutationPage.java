@@ -6,6 +6,8 @@ import com.tech.freak.wizardpager.model.Page;
 import com.tech.freak.wizardpager.model.ReviewItem;
 import java.util.ArrayList;
 
+import ro.calendarh.calendarapp.config.wizard.ui.SalutationFragment;
+
 /**
  * Created by RalucaStanculescu on 09.09.2015.
  */
@@ -17,7 +19,7 @@ public class SalutationPage extends Page {
 
     @Override
     public Fragment createFragment() {
-        return null;
+        return SalutationFragment.create(getKey());
     }
 
     @Override
