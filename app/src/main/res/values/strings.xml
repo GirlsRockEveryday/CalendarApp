@@ -12,8 +12,8 @@
     <string name="button_next">Go ahead! >></string>
     <string name="title_activity_display_summary">Your summary</string>
     <string name="title_configuration_wizard">Wizard configuration</string>
-    <string name="submit_confirm_message">Place the order with the deli? You will receive an email confirmation.</string>
-    <string name="submit_confirm_button">Place order</string>
-    <string name="finish">Submit order</string>
+    <string name="submit_confirm_message">The notification will be added daily</string>
+    <string name="submit_confirm_button">Start it!</string>
+    <string name="finish">Go on!</string>
 
 </resources>

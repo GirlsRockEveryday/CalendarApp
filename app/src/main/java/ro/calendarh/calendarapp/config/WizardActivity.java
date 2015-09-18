@@ -182,6 +182,18 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mWizardModel.unregisterListener(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBundle("model", mWizardModel.save());
+    }
+
+    @Override
     public void onEditScreenAfterReview(String pageKey) {
         for (int i = mCurrentPageSequence.size() - 1; i >= 0; i--) {
             if (mCurrentPageSequence.get(i).getKey().equals(pageKey)) {
