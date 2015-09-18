@@ -23,7 +23,7 @@ import java.util.List;
 import ro.calendarh.calendarapp.R;
 
 
-public class WizardActivity extends FragmentActivity implements PageFragmentCallbacks, ModelCallbacks {
+public class WizardActivity extends FragmentActivity implements PageFragmentCallbacks,ReviewFragment.Callbacks, ModelCallbacks {
 
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
@@ -174,6 +174,24 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
     @Override
     public Page onGetPage(String key) {
         return mWizardModel.findByKey(key);
+    }
+
+    @Override
+    public AbstractWizardModel onGetModel() {
+        return mWizardModel;
+    }
+
+    @Override
+    public void onEditScreenAfterReview(String pageKey) {
+        for (int i = mCurrentPageSequence.size() - 1; i >= 0; i--) {
+            if (mCurrentPageSequence.get(i).getKey().equals(pageKey)) {
+                mConsumePageSelectedEvent = true;
+                mEditingAfterReview = true;
+                mPager.setCurrentItem(i);
+                updateBottomBar();
+                break;
+            }
+        }
     }
 
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
