@@ -173,7 +173,7 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 
     @Override
     public Page onGetPage(String key) {
-        return null;
+        return mWizardModel.findByKey(key);
     }
 
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
