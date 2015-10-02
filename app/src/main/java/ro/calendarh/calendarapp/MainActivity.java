@@ -19,6 +19,7 @@ import ro.calendarh.calendarapp.config.WizardActivity;
 import java.util.Calendar;
 import java.util.Locale;
 import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NAME;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NOTIFICATION;
 import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREFS;
 
 
@@ -81,8 +82,9 @@ public class MainActivity extends ActionBarActivity {
     private void displayWelcome() {
         mSharedPreferences = getSharedPreferences(PREFS, MODE_PRIVATE);
         String name = mSharedPreferences.getString(PREF_NAME, "");
+        String notification = mSharedPreferences.getString(PREF_NOTIFICATION, "");
         if (name.length() > 0) {
-            Toast.makeText(this, "Welcome back, " + name + "!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Welcome back, " + name + "  ->>>>  "+ notification+ "!", Toast.LENGTH_LONG).show();
         } else {
 //            runOldImplementation();
             //start wizard activity

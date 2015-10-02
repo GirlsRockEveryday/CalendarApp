@@ -22,4 +22,8 @@ public class HappyWizardModel extends AbstractWizardModel {
                             new CustomerInfoPage(this, "Your info").setRequired(true)
         );
     }
+
+    public int getCustomerInfoIndex() {
+        return 1;
+    }
 }

@@ -14,5 +14,6 @@
     <string name="submit_confirm_message">The notification will be added daily</string>
     <string name="submit_confirm_button">Start it!</string>
     <string name="finish">Go on!</string>
+    <string name="change_the_time_string">Select the time</string>
 
 </resources>

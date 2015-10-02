@@ -23,6 +23,7 @@ import com.tech.freak.wizardpager.ui.ReviewFragment;
 import com.tech.freak.wizardpager.ui.StepPagerStrip;
 import java.util.List;
 import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NAME;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NOTIFICATION;
 import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREFS;
 import ro.calendarh.calendarapp.R;
 
@@ -33,7 +34,7 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
     private MyPagerAdapter mPagerAdapter;
 
     private boolean mEditingAfterReview;
-    private AbstractWizardModel mWizardModel = new HappyWizardModel(this);
+    private HappyWizardModel mWizardModel = new HappyWizardModel(this);
     private boolean mConsumePageSelectedEvent;
 
     private Button mNextButton;
@@ -102,14 +103,13 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
                                     .setMessage(R.string.submit_confirm_message)
                                     .setPositiveButton(R.string.submit_confirm_button, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-
                                             SharedPreferences.Editor edit = mSharedPreferences.edit();
-                                            edit.putString(PREF_NAME, (String) mCurrentPageSequence.get(1).getData().get(PREF_NAME));
+                                            savePrefs(edit,PREF_NAME);
+                                            savePrefs(edit,PREF_NOTIFICATION);
                                             edit.commit();
                                         }
                                     })
-                                    .setNegativeButton(android.R.string.cancel, null)
-                                    .create();
+                                    .setNegativeButton(android.R.string.cancel, null).create();
                         }
                     };
                     dg.show(getSupportFragmentManager(), "place_order_dialog");
@@ -133,6 +133,10 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 
         onPageTreeChanged();
         updateBottomBar();
+    }
+
+    private void savePrefs(SharedPreferences.Editor edit, String prefName) {
+        edit.putString(prefName, (String) mCurrentPageSequence.get(mWizardModel.getCustomerInfoIndex()).getData().get(prefName));
     }
 
     private void updateBottomBar() {

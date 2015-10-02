@@ -31,7 +31,8 @@ public class CustomerInfoPage extends Page {
     @Override
     public boolean isCompleted() {
 
-        return !TextUtils.isEmpty(mData.getString(PREF_NAME));
+        return !TextUtils.isEmpty(mData.getString(PREF_NAME))&&
+                !TextUtils.isEmpty(mData.getString(PREF_NOTIFICATION));
     }
 
 
