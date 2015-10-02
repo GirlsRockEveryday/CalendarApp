@@ -18,16 +18,13 @@ import android.widget.Toast;
 import ro.calendarh.calendarapp.config.WizardActivity;
 import java.util.Calendar;
 import java.util.Locale;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NAME;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREFS;
 
 
 public class MainActivity extends ActionBarActivity {
 
     public static final String EXTRA_MESSAGE = "extra";
-
-    private static final String PREF_NAME = "name";
-    private static final String PREFS = "prefs";
-
-//    private ShareActionProvider mShareActionProvider;
     private SharedPreferences mSharedPreferences;
 
     private TextView activityNameLbl;

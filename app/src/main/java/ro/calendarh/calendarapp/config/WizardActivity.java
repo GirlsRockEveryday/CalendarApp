@@ -2,6 +2,8 @@ package ro.calendarh.calendarapp.config;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import com.tech.freak.wizardpager.model.AbstractWizardModel;
 import com.tech.freak.wizardpager.model.ModelCallbacks;
@@ -19,7 +22,8 @@ import com.tech.freak.wizardpager.ui.PageFragmentCallbacks;
 import com.tech.freak.wizardpager.ui.ReviewFragment;
 import com.tech.freak.wizardpager.ui.StepPagerStrip;
 import java.util.List;
-
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NAME;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREFS;
 import ro.calendarh.calendarapp.R;
 
 
@@ -27,13 +31,18 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
+
     private boolean mEditingAfterReview;
     private AbstractWizardModel mWizardModel = new HappyWizardModel(this);
     private boolean mConsumePageSelectedEvent;
+
     private Button mNextButton;
     private Button mPrevButton;
+
     private List<Page> mCurrentPageSequence;
     private StepPagerStrip mStepPagerStrip;
+
+    private SharedPreferences mSharedPreferences;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -46,9 +55,11 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 
         mWizardModel.registerListener(this);
 
+        //the Page fragments are managed by this adapter
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
+
         mStepPagerStrip = (StepPagerStrip) findViewById(R.id.strip);
         mStepPagerStrip.setOnPageSelectedListener(new StepPagerStrip.OnPageSelectedListener() {
             @Override
@@ -78,6 +89,8 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
             }
         });
 
+        mSharedPreferences = getSharedPreferences(PREFS, MODE_PRIVATE);
+
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,12 +100,20 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
                         public Dialog onCreateDialog(Bundle savedInstanceState) {
                             return new AlertDialog.Builder(getActivity())
                                     .setMessage(R.string.submit_confirm_message)
-                                    .setPositiveButton(R.string.submit_confirm_button, null)
+                                    .setPositiveButton(R.string.submit_confirm_button, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+
+                                            SharedPreferences.Editor edit = mSharedPreferences.edit();
+                                            edit.putString(PREF_NAME, (String) mCurrentPageSequence.get(1).getData().get(PREF_NAME));
+                                            edit.commit();
+                                        }
+                                    })
                                     .setNegativeButton(android.R.string.cancel, null)
                                     .create();
                         }
                     };
                     dg.show(getSupportFragmentManager(), "place_order_dialog");
+
                 } else {
                     if (mEditingAfterReview) {
                         mPager.setCurrentItem(mPagerAdapter.getCount() - 1);
@@ -220,8 +241,22 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
             if (i >= mCurrentPageSequence.size()) {
                 return new ReviewFragment();
             }
-
             return mCurrentPageSequence.get(i).createFragment();
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            if (object == mPrimaryItem) {
+                // Re-use the current fragment (its position never changes)
+                return POSITION_UNCHANGED;
+            }
+            return POSITION_NONE;
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            super.setPrimaryItem(container, position, object);
+            mPrimaryItem = (Fragment) object;
         }
 
         @Override
