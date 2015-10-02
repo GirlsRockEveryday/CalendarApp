@@ -31,8 +31,7 @@
         android:text="Medium Text"
         android:id="@+id/activityNamelbl"
         android:layout_marginTop="22dp"
-        android:layout_below="@+id/lineSep"
-        android:layout_toEndOf="@+id/button" />
+        android:layout_below="@+id/lineSep" />
 
 
     <View android:id="@+id/lineSep2"
@@ -50,25 +49,9 @@
         android:textColor="#ff16cf0e"
         android:textColorHighlight="#ff21ff8f"
         android:textStyle="bold|italic"
-        android:layout_alignTop="@+id/activityTextLbl"
-        android:layout_toEndOf="@+id/activityNamelbl" />
-
-    <EditText android:id="@+id/edit_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/edit_message"
-        android:layout_marginTop="46dp"
-        android:layout_below="@+id/todayQuote"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_next"
-        android:layout_below="@+id/edit_message"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp"
-        android:id="@+id/button" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/activityTextLbl"
+        android:layout_marginBottom="122dp" />
 
 
     <TextView
@@ -77,9 +60,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/activityTextLbl"
-        android:layout_below="@+id/activityNamelbl"
-        android:layout_toStartOf="@+id/activityNamelbl"
-        android:layout_marginTop="72dp" />
+        android:layout_marginTop="103dp"
+        android:layout_below="@+id/lineSep2"
+        android:layout_toEndOf="@+id/activityNamelbl" />
 
 </RelativeLayout>
 
