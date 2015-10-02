@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.tech.freak.wizardpager.ui.PageFragmentCallbacks;
 import ro.calendarh.calendarapp.R;
 import ro.calendarh.calendarapp.config.wizard.model.CustomerInfoPage;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NAME;
 
 
 public class CustomerInfoFragment extends Fragment {
@@ -43,7 +44,7 @@ public class CustomerInfoFragment extends Fragment {
         Bundle args = getArguments();
         mKey = args.getString(ARG_KEY);
         mPage = (CustomerInfoPage) mCallbacks.onGetPage(mKey);
-    }
+            }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class CustomerInfoFragment extends Fragment {
         ((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
 
         mNameView = ((TextView) rootView.findViewById(R.id.your_name));
-        mNameView.setText(mPage.getData().getString(CustomerInfoPage.NAME_DATA_KEY));
+        mNameView.setText(mPage.getData().getString(PREF_NAME));
 
         return rootView;
     }
@@ -87,7 +88,7 @@ public class CustomerInfoFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                mPage.getData().putString(CustomerInfoPage.NAME_DATA_KEY, (editable != null) ? editable.toString() : null);
+                mPage.getData().putString(PREF_NAME, (editable != null) ? editable.toString() : null);
                 mPage.notifyDataChanged();
             }
         });

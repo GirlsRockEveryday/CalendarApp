@@ -7,13 +7,11 @@ import com.tech.freak.wizardpager.model.Page;
 import com.tech.freak.wizardpager.model.ReviewItem;
 import java.util.ArrayList;
 import ro.calendarh.calendarapp.config.wizard.ui.CustomerInfoFragment;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NAME;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NOTIFICATION;
 
 
 public class CustomerInfoPage extends Page {
-
-    public static final String NAME_DATA_KEY = "name";
-    public static final String NOTIFICATION_DATE_KEY = "notification";
-
 
     public CustomerInfoPage(ModelCallbacks callbacks, String title) {
         super(callbacks, title);
@@ -26,13 +24,14 @@ public class CustomerInfoPage extends Page {
 
     @Override
     public void getReviewItems(ArrayList<ReviewItem> dest) {
-        dest.add(new ReviewItem("Your name", mData.getString(NAME_DATA_KEY), getKey(), -1));
-        dest.add(new ReviewItem("Your notification", mData.getString(NOTIFICATION_DATE_KEY), getKey(), -1));
+        dest.add(new ReviewItem("Your name", mData.getString(PREF_NAME), getKey(), -1));
+        dest.add(new ReviewItem("Your notification", mData.getString(PREF_NOTIFICATION), getKey(), -1));
     }
 
     @Override
     public boolean isCompleted() {
-        return !TextUtils.isEmpty(mData.getString(NAME_DATA_KEY));
+
+        return !TextUtils.isEmpty(mData.getString(PREF_NAME));
     }
 
 
