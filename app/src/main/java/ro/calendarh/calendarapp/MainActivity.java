@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import ro.calendarh.calendarapp.config.WizardActivity;
+import ro.calendarh.calendarapp.notification.content.ActivityBean;
+import ro.calendarh.calendarapp.notification.content.ActivityChooser;
 import java.util.Calendar;
 import java.util.Locale;
 import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NAME;
@@ -42,14 +45,17 @@ public class MainActivity extends ActionBarActivity {
         Calendar calendar = Calendar.getInstance();
         dateLabel.setText(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " + calendar.get(Calendar.DAY_OF_MONTH) + ", " + calendar.get(Calendar.YEAR));
 
+        ActivityChooser chooser = new ActivityChooser(getAssets(),1);
+        ActivityBean result= chooser.getActivity();
+
         activityNameLbl = (TextView) findViewById(R.id.activityNamelbl);
-        activityNameLbl.setText("Jogging");
+        activityNameLbl.setText(result.getActivityName());
 
         activityTextLbl = (TextView) findViewById(R.id.activityTextLbl);
-        activityTextLbl.setText("Run in park");
+        activityTextLbl.setText(result.getActivityText());
 
         TextView todayQuote = (TextView)findViewById(R.id.todayQuote);
-        todayQuote.setText("“If you spend your whole life waiting for the storm, you’ll never enjoy the sunshine.” -Morris West");
+        todayQuote.setText(result.getActivityAdvice());
     }
 
 
