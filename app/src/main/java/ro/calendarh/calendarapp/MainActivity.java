@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
         Calendar calendar = Calendar.getInstance();
         dateLabel.setText(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " + calendar.get(Calendar.DAY_OF_MONTH) + ", " + calendar.get(Calendar.YEAR));
 
-        ActivityChooser chooser = new ActivityChooser(getAssets(),1);
+        ActivityChooser chooser = new ActivityChooser(getAssets(), mSharedPreferences);
         ActivityBean result= chooser.getActivity();
 
         activityNameLbl = (TextView) findViewById(R.id.activityNamelbl);

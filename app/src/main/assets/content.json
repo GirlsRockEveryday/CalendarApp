@@ -8,5 +8,10 @@
             "activity_name": "Cook something!",
             "activity_text": "Getting your hands dirty can do a world of good. Plus you will get a sense of accomplishment that will definitely lift up your mood. One you start doing it, you will start feeling a natural high as you progress. Stick with it.",
             "advice_quote": "Google search for: cooking DIY"
+        },
+        {
+             "activity_name": "Clean up the house!",
+             "activity_text": "Any transformation for the better, starts with a clean house. Clutter doesn't do any good.",
+             "advice_quote": "This is still physical activity, so get ready to shed some calories :) "
         }
 ]

@@ -21,9 +21,13 @@ import com.tech.freak.wizardpager.model.Page;
 import com.tech.freak.wizardpager.ui.PageFragmentCallbacks;
 import com.tech.freak.wizardpager.ui.ReviewFragment;
 import com.tech.freak.wizardpager.ui.StepPagerStrip;
+
+import java.util.Date;
 import java.util.List;
 import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NAME;
 import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREF_NOTIFICATION;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.LATEST_DAY;
+import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.LATEST_DATE_OPENED;
 import static ro.calendarh.calendarapp.config.wizard.PreferenceHelper.PREFS;
 import ro.calendarh.calendarapp.R;
 
@@ -106,6 +110,8 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
                                             SharedPreferences.Editor edit = mSharedPreferences.edit();
                                             savePrefs(edit,PREF_NAME);
                                             savePrefs(edit,PREF_NOTIFICATION);
+                                            edit.putInt(LATEST_DAY, 0);
+                                            edit.putLong(LATEST_DATE_OPENED, new Date().getTime());
                                             edit.commit();
                                         }
                                     })
